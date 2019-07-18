@@ -50,7 +50,6 @@ namespace SnakeGame
             Clear();
             PlayField();
             ScoreField();
-            ReadKey();
         }
 
 

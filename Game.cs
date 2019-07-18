@@ -20,6 +20,9 @@ namespace  SnakeGame
             Screen.Welcome();
             Screen.PlayScreen();
 
+            Snake snake = new Snake();
+
+            Console.ReadKey();
             Console.Clear();
         }
     }
