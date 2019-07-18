@@ -6,9 +6,11 @@ namespace  SnakeGame
     {
         public static void Initialize()
         {
-            Console.WindowWidth = 120;
-            Console.WindowHeight = 30;
+            Console.Title = "Snake...";
+            Console.SetWindowSize(120, 30);
+            Console.SetBufferSize(Console.WindowWidth, Console.WindowHeight);
 
+            Console.Clear();
             Console.CursorVisible = false;
         }
 
@@ -16,6 +18,9 @@ namespace  SnakeGame
         public static void Start()
         {
             Screen.Welcome();
+            Screen.PlayScreen();
+
+            Console.Clear();
         }
     }
 }
