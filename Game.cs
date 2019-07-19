@@ -16,6 +16,7 @@ namespace  SnakeGame
         }
         private static bool isGameOn =  false;
         private static int gameSpeed = 0;
+        private static int snakeLength;
         private static Direction direction;
         public static void Initialize()
         {
@@ -28,6 +29,7 @@ namespace  SnakeGame
 
             isGameOn = true;
             gameSpeed = 150;
+            snakeLength = 0;
             direction = Direction.Stand;
         }
 
@@ -110,6 +112,8 @@ namespace  SnakeGame
                 if (snake.AteFruit(apple))
                 {
                     apple.IsEatenBy(snake);
+                    snakeLength++;
+                    Screen.UpdateScoreField(snakeLength);
                 }
 
                 if (KeyAvailable)

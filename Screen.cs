@@ -19,6 +19,9 @@ namespace SnakeGame
             get;
             private set;
         } = _screenHeight;
+
+        private static int scoreField_X = PlayFieldWidth + 5;
+        private static int score_Y;
    
    
         public static void Welcome()
@@ -89,8 +92,6 @@ namespace SnakeGame
 
         private static void ScoreField()
         {
-            int scoreField_X = PlayFieldWidth + 5;
-
             string[] fieldTitle = new string[5]
             {
                 " __             _              ",
@@ -105,10 +106,16 @@ namespace SnakeGame
                 writeTextAt(fieldTitle[i], scoreField_X, i, false);
             }
 
-            WriteLine();
-            writeTextAt("SCORE: 0", scoreField_X);
+            score_Y = fieldTitle.Length + 1;
+            UpdateScoreField(0);
+            
         }
 
+
+        public static void UpdateScoreField(int score)
+        {
+            writeTextAt("SCORE: " + score, scoreField_X, score_Y, false);
+        }
 
         private static void centerText(string[] text, int y = 0, bool useCurrentY = true)
         {
