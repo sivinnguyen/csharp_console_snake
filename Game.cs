@@ -1,17 +1,23 @@
 using System;
+using System.Threading;
+using static System.Console;
 
 namespace  SnakeGame
 {
-    public class Game
+    static class Game
     {
+        private static bool isGameOn;
+        private static int gameSpeed = 150;
         public static void Initialize()
         {
-            Console.Title = "Snake...";
-            Console.SetWindowSize(120, 30);
-            Console.SetBufferSize(Console.WindowWidth, Console.WindowHeight);
+            Title = "Snake...";
+            SetWindowSize(120, 30);
+            SetBufferSize(120, 30);
 
-            Console.Clear();
-            Console.CursorVisible = false;
+            Clear();
+            CursorVisible = false;
+
+            isGameOn = true;
         }
 
 
@@ -22,8 +28,44 @@ namespace  SnakeGame
 
             Snake snake = new Snake();
 
-            Console.ReadKey();
-            Console.Clear();
+            ConsoleKey command = ReadKey().Key;
+
+            do
+            {
+                switch (command)
+                {
+                    case ConsoleKey.LeftArrow:
+                        snake.MoveLeft();
+                        break;
+                    case ConsoleKey.RightArrow:
+                        snake.MoveRight();
+                        break;
+                    case ConsoleKey.UpArrow:
+                        snake.MoveUp();
+                        break;
+                    case ConsoleKey.DownArrow:
+                        snake.MoveDown();
+                        break;
+                }
+
+                snake.Head();
+
+                if (snake.HitTheWall())
+                {
+                    isGameOn = false;
+                }
+
+                if (KeyAvailable)
+                {
+                    command = ReadKey().Key;
+                } 
+
+                Thread.Sleep(gameSpeed);
+
+            } while (isGameOn);
+
+            ReadKey();
+            Clear();
         }
     }
 }

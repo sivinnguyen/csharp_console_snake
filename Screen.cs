@@ -3,7 +3,7 @@ using static System.Console;
 
 namespace SnakeGame
 {
-    public class Screen
+    static class Screen
     {
         private static int _screenWidth = Console.WindowWidth;
         private static int _screenHeight = Console.WindowHeight;
