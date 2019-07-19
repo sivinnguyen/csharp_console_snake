@@ -16,20 +16,26 @@ namespace SnakeGame
             private set;
         }
 
-        private int playFieldWidth = Screen.PlayFieldWidth;
-        private int playFieldHeight = Screen.PlayFieldHeight;
-
-        public Snake()
+        public int PlayField_W
         {
-            Random random = new Random();
-            
-            // Snake appeared in the center of play field   
-            // Head_X = playFieldWidth / 2;
-            // Head_Y = playFieldHeight / 2;
-            
+            get;
+            private set;
+        }
+        public int PlayField_H
+        {
+            get;
+            private set;
+        }
+
+        public Snake(int playableField_W, int playableField_H)
+        {
+            PlayField_W = playableField_W;
+            PlayField_H = playableField_H; 
+
             // Randomly appeared in safety zone
-            Head_X = random.Next(1, playFieldWidth - 2);
-            Head_Y = random.Next(1, playFieldHeight - 2);
+            Random random = new Random();                        
+            Head_X = random.Next(1, PlayField_W - 2);
+            Head_Y = random.Next(1, PlayField_H - 2);
 
             Head();
         }
@@ -75,7 +81,17 @@ namespace SnakeGame
         public bool HitTheWall()
         {
             
-            if (Head_X == 0 || Head_X == playFieldWidth - 1 || Head_Y == 0 || Head_Y == playFieldHeight -1)
+            if (Head_X == 0 || Head_X == PlayField_W - 1 || Head_Y == 0 || Head_Y == PlayField_H - 1)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool AteFruit(Fruit fruit)
+        {
+            if (Head_X == fruit.X && Head_Y == fruit.Y)
             {
                 return true;
             }

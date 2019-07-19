@@ -37,17 +37,79 @@ namespace  SnakeGame
             Screen.Welcome();
             Screen.PlayScreen();
 
-            Snake snake = new Snake();
+            Snake snake = new Snake(Screen.PlayFieldWidth, Screen.PlayFieldHeight);
+            Fruit apple = new Fruit(snake);
 
             ConsoleKey command = ReadKey().Key;
 
             do
             {
-                snakeMoveLogic(snake, direction, command);
+                switch (command)
+                {
+                    case ConsoleKey.LeftArrow:
+                        if(direction != Direction.Right)
+                        {
+                            direction = Direction.Left;   
+                        }
+                        break;
+
+                    case ConsoleKey.RightArrow:
+                        if(direction != Direction.Left)
+                        {
+                            direction = Direction.Right;
+                        }
+                        break;
+                        
+                    case ConsoleKey.UpArrow:
+                        if(direction != Direction.Down)
+                        {
+                            direction = Direction.Up;
+                        }
+                        break;
+
+                    case ConsoleKey.DownArrow:
+                        if(direction != Direction.Up)
+                        {
+                            direction = Direction.Down;
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+
+                if(direction == Direction.Up)
+                {
+                    snake.MoveUp();
+                }
+
+                if(direction == Direction.Down)
+                {
+                    snake.MoveDown();
+                }
+
+                if(direction == Direction.Left)
+                {
+                    snake.MoveLeft();
+                }
+
+                if(direction == Direction.Right)
+                {
+                    snake.MoveRight();
+                }
+
+                snake.Head();
+                
+                //snakeMoveLogic(snake, direction, command);
 
                 if (snake.HitTheWall())
                 {
                     isGameOn = false;
+                }
+
+                if (snake.AteFruit(apple))
+                {
+                    apple.IsEatenBy(snake);
                 }
 
                 if (KeyAvailable)
@@ -72,6 +134,7 @@ namespace  SnakeGame
                 case ConsoleKey.LeftArrow:
                     if(direction != Direction.Right)
                     {
+                        snake.MoveLeft();
                         direction = Direction.Left;   
                     }
                     break;
@@ -79,6 +142,7 @@ namespace  SnakeGame
                 case ConsoleKey.RightArrow:
                     if(direction != Direction.Left)
                     {
+                        snake.MoveRight();
                         direction = Direction.Right;
                     }
                     break;
@@ -86,6 +150,7 @@ namespace  SnakeGame
                 case ConsoleKey.UpArrow:
                     if(direction != Direction.Down)
                     {
+                        snake.MoveUp();
                         direction = Direction.Up;
                     }
                     break;
@@ -93,6 +158,7 @@ namespace  SnakeGame
                 case ConsoleKey.DownArrow:
                     if(direction != Direction.Up)
                     {
+                        snake.MoveDown();
                         direction = Direction.Down;
                     }
                     break;
