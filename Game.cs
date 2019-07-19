@@ -5,9 +5,18 @@ using static System.Console;
 namespace  SnakeGame
 {
     static class Game
-    {
-        private static bool isGameOn;
-        private static int gameSpeed = 150;
+    {   
+        private enum Direction
+        {
+            Stand,
+            Up,
+            Down,
+            Left,
+            Right
+        }
+        private static bool isGameOn =  false;
+        private static int gameSpeed = 0;
+        private static Direction direction;
         public static void Initialize()
         {
             Title = "Snake...";
@@ -18,6 +27,8 @@ namespace  SnakeGame
             CursorVisible = false;
 
             isGameOn = true;
+            gameSpeed = 150;
+            direction = Direction.Stand;
         }
 
 
@@ -32,23 +43,7 @@ namespace  SnakeGame
 
             do
             {
-                switch (command)
-                {
-                    case ConsoleKey.LeftArrow:
-                        snake.MoveLeft();
-                        break;
-                    case ConsoleKey.RightArrow:
-                        snake.MoveRight();
-                        break;
-                    case ConsoleKey.UpArrow:
-                        snake.MoveUp();
-                        break;
-                    case ConsoleKey.DownArrow:
-                        snake.MoveDown();
-                        break;
-                }
-
-                snake.Head();
+                snakeMoveLogic(snake, direction, command);
 
                 if (snake.HitTheWall())
                 {
@@ -64,8 +59,69 @@ namespace  SnakeGame
 
             } while (isGameOn);
 
+
             ReadKey();
-            Clear();
+        }
+
+
+        private static void snakeMoveLogic(Snake snake, Direction direction, ConsoleKey command)
+        {
+            
+            switch (command)
+            {
+                case ConsoleKey.LeftArrow:
+                    if(direction != Direction.Right)
+                    {
+                        direction = Direction.Left;   
+                    }
+                    break;
+
+                case ConsoleKey.RightArrow:
+                    if(direction != Direction.Left)
+                    {
+                        direction = Direction.Right;
+                    }
+                    break;
+                    
+                case ConsoleKey.UpArrow:
+                    if(direction != Direction.Down)
+                    {
+                        direction = Direction.Up;
+                    }
+                    break;
+
+                case ConsoleKey.DownArrow:
+                    if(direction != Direction.Up)
+                    {
+                        direction = Direction.Down;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+            
+            if(direction == Direction.Up)
+            {
+                snake.MoveUp();
+            }
+
+            if(direction == Direction.Down)
+            {
+                snake.MoveDown();
+            }
+
+            if(direction == Direction.Left)
+            {
+                snake.MoveLeft();
+            }
+
+            if(direction == Direction.Right)
+            {
+                snake.MoveRight();
+            }
+
+            snake.Head();
         }
     }
 }
