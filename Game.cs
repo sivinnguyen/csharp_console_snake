@@ -29,7 +29,7 @@ namespace  SnakeGame
 
             isGameOn = true;
             gameSpeed = 150;
-            snakeLength = 0;
+            snakeLength = 1;
             direction = Direction.Stand;
         }
 
@@ -100,9 +100,8 @@ namespace  SnakeGame
                     snake.MoveRight();
                 }
 
-                snake.Head();
+                snake.Render();
                 
-                //snakeMoveLogic(snake, direction, command);
 
                 if (snake.HitTheWall())
                 {
@@ -113,7 +112,8 @@ namespace  SnakeGame
                 {
                     apple.IsEatenBy(snake);
                     snakeLength++;
-                    Screen.UpdateScoreField(snakeLength);
+                    snake.IncreaseLength();
+                    Screen.UpdateScoreField(snakeLength - 1);
                 }
 
                 if (KeyAvailable)
@@ -127,71 +127,6 @@ namespace  SnakeGame
 
 
             ReadKey();
-        }
-
-
-        private static void snakeMoveLogic(Snake snake, Direction direction, ConsoleKey command)
-        {
-            
-            switch (command)
-            {
-                case ConsoleKey.LeftArrow:
-                    if(direction != Direction.Right)
-                    {
-                        snake.MoveLeft();
-                        direction = Direction.Left;   
-                    }
-                    break;
-
-                case ConsoleKey.RightArrow:
-                    if(direction != Direction.Left)
-                    {
-                        snake.MoveRight();
-                        direction = Direction.Right;
-                    }
-                    break;
-                    
-                case ConsoleKey.UpArrow:
-                    if(direction != Direction.Down)
-                    {
-                        snake.MoveUp();
-                        direction = Direction.Up;
-                    }
-                    break;
-
-                case ConsoleKey.DownArrow:
-                    if(direction != Direction.Up)
-                    {
-                        snake.MoveDown();
-                        direction = Direction.Down;
-                    }
-                    break;
-
-                default:
-                    break;
-            }
-            
-            if(direction == Direction.Up)
-            {
-                snake.MoveUp();
-            }
-
-            if(direction == Direction.Down)
-            {
-                snake.MoveDown();
-            }
-
-            if(direction == Direction.Left)
-            {
-                snake.MoveLeft();
-            }
-
-            if(direction == Direction.Right)
-            {
-                snake.MoveRight();
-            }
-
-            snake.Head();
         }
     }
 }

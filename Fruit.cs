@@ -24,14 +24,14 @@ namespace SnakeGame
             playFieldWidth = snake.PlayField_W;
             playFieldHeight = snake.PlayField_H;
 
-            randomPosition(snake.Head_X, snake.Head_Y);
+            randomPosition(snake.X[0], snake.Y[0]);
             Create();
         }
 
 
         public void IsEatenBy(Snake snake)
         {
-            randomPosition(snake.Head_X, snake.Head_Y);
+            randomPosition(snake.X[0], snake.Y[0]);
             Create();
         }
 
@@ -39,7 +39,7 @@ namespace SnakeGame
         private void Create()
         {
             SetCursorPosition(X, Y);
-            ForegroundColor = ConsoleColor.Red;
+            ForegroundColor = ConsoleColor.Magenta;
             Write("\u25A0");
             ResetColor();
         }
